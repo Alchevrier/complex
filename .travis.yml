@@ -1,0 +1,23 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t alchevrier/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true alchevrier/react-test npm test
+
+after_success:
+  - docker build -t alchevrier/complex-client ./client
+  - docker build -t alchevrier/complex-server ./server
+  - docker build -t alchevrier/complex-worker ./worker
+  - docker build -t alchevrier/complex-nginx ./nginx
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push alchevrier/complex-client
+  - docker push alchevrier/complex-server
+  - docker push alchevrier/complex-worker
+  - docker push alchevrier/complex-nginx
