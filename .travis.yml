@@ -23,8 +23,8 @@ after_success:
   - docker push alchevrier/complex-nginx
 
   deploy:
-    edge: true
     provider: elasticbeanstalk
+    edge: true
     region: eu-west-2
     app: complex-docker
     env: ComplexDocker-env
