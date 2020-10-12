@@ -22,15 +22,15 @@ after_success:
   - docker push alchevrier/complex-worker
   - docker push alchevrier/complex-nginx
 
-  deploy:
-    provider: elasticbeanstalk
-    edge: true
-    region: eu-west-2
-    app: complex-docker
-    env: ComplexDocker-env
-    bucket_name: elasticbeanstalk-eu-west-2-340410335482
-    bucket_path: docker-complex
-    on:
-      branch: master
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_SECRET_KEY
+deploy:
+  provider: elasticbeanstalk
+  edge: true
+  region: eu-west-2
+  app: complex-docker
+  env: ComplexDocker-env
+  bucket_name: elasticbeanstalk-eu-west-2-340410335482
+  bucket_path: docker-complex
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
